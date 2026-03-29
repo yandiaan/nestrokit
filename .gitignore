@@ -1,0 +1,60 @@
+# dependencies
+node_modules/
+*.pnp
+.pnp
+
+# testing
+coverage/
+
+# production
+dist/
+build/
+
+# misc
+.DS_Store
+*.pem
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.c9/
+*.sublime-workspace
+
+# OS
+Thumbs.db
+.AppleDouble
+.LSOverride
+
+# Astro
+.astro/
+site/
+.cache/
+
+# Package managers
+pnpm-lock.yaml
+yarn.lock
+package-lock.json
+
+# Temporary files
+*.log
+tmp/
+temp/
+
+# Turbopack
+.turbo/

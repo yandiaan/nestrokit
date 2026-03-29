@@ -1,0 +1,86 @@
+{
+  "$schema": "./tools/scaffold/schema.json",
+  "groups": {
+    "frontend": {
+      "description": "Frontend application and related packages",
+      "apps": ["web"],
+      "packages": ["ui", "api-client"],
+      "dependencies": [
+        "@astrojs/*",
+        "astro",
+        "svelte",
+        "@sveltejs/*",
+        "tailwindcss",
+        "@tailwindcss/*"
+      ]
+    },
+    "backend": {
+      "description": "Backend API and related packages",
+      "apps": ["api"],
+      "packages": ["database"],
+      "dependencies": [
+        "@nestjs/*",
+        "prisma",
+        "@prisma/client",
+        "ioredis",
+        "@nestjs/jwt",
+        "passport",
+        "passport-jwt",
+        "helmet",
+        "@nestjs/throttler",
+        "@nestjs/swagger"
+      ]
+    },
+    "shared": {
+      "description": "Shared packages used by both frontend and backend",
+      "packages": ["core", "config", "utils"],
+      "dependencies": [
+        "fp-ts",
+        "zod",
+        "typescript"
+      ]
+    }
+  },
+  "features": {
+    "auth": {
+      "description": "JWT authentication module",
+      "files": [
+        "apps/api/src/modules/auth/**"
+      ],
+      "dependencies": [
+        "@nestjs/jwt",
+        "passport",
+        "passport-jwt",
+        "@nestjs/passport"
+      ]
+    },
+    "redis": {
+      "description": "Redis caching module",
+      "files": [
+        "apps/api/src/modules/cache/**"
+      ],
+      "dependencies": [
+        "ioredis",
+        "@nestjs/cache-manager",
+        "cache-manager-ioredis-yet"
+      ]
+    }
+  },
+  "projectTypes": {
+    "frontend-only": {
+      "description": "Frontend only (Astro + Svelte)",
+      "include": ["frontend", "shared"],
+      "exclude": ["backend"]
+    },
+    "backend-only": {
+      "description": "Backend only (NestJS API)",
+      "include": ["backend", "shared"],
+      "exclude": ["frontend"]
+    },
+    "fullstack": {
+      "description": "Full stack (Frontend + Backend)",
+      "include": ["frontend", "backend", "shared"],
+      "exclude": []
+    }
+  }
+}

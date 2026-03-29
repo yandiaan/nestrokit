@@ -1,0 +1,44 @@
+{
+  "name": "turborepo-fullstack-boilerplate",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@9.15.0",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "typecheck": "turbo typecheck",
+    "format": "prettier --write \"**/*.{ts,tsx,svelte,astro,md,json}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,svelte,astro,md,json}\"",
+    "clean": "turbo clean && rm -rf node_modules",
+    "deps:check": "pnpm outdated -r",
+    "deps:update": "pnpm update -r --latest",
+    "deps:audit": "pnpm audit --audit-level=high",
+    "deps:dedupe": "pnpm dedupe",
+    "scaffold": "pnpm --filter @repo/scaffold start",
+    "db:generate": "pnpm --filter @repo/database generate",
+    "db:migrate:dev": "pnpm --filter @repo/database migrate:dev",
+    "db:migrate:deploy": "pnpm --filter @repo/database migrate:deploy",
+    "db:push": "pnpm --filter @repo/database push",
+    "db:studio": "pnpm --filter @repo/database studio",
+    "api:dev": "pnpm --filter @repo/api dev",
+    "api:build": "pnpm --filter @repo/api build",
+    "api:start": "pnpm --filter @repo/api start:prod",
+    "web:dev": "pnpm --filter @repo/web dev",
+    "web:build": "pnpm --filter @repo/web build",
+    "web:preview": "pnpm --filter @repo/web preview",
+    "generate:api-client": "pnpm --filter @repo/api-client generate"
+  },
+  "devDependencies": {
+    "prettier": "^3.4.2",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-svelte": "^3.3.2",
+    "prettier-plugin-tailwindcss": "^0.6.9",
+    "turbo": "^2.3.3",
+    "typescript": "^5.7.2"
+  }
+}
