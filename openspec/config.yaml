@@ -1,20 +1,71 @@
 schema: spec-driven
 
-# Project context (optional)
-# This is shown to AI when creating artifacts.
-# Add your tech stack, conventions, style guides, domain knowledge, etc.
-# Example:
-#   context: |
-#     Tech stack: TypeScript, React, Node.js
-#     We use conventional commits
-#     Domain: e-commerce platform
+context: |
+  # Turborepo Full-Stack Boilerplate
+  
+  ## Tech Stack
+  - **Monorepo**: Turborepo + pnpm workspaces
+  - **Frontend**: Astro 5.x + Svelte 5.x islands + Tailwind CSS 4.x (CSS-first)
+  - **Backend**: NestJS 11.x + Prisma 6.x + Redis (ioredis)
+  - **State**: Svelte stores (frontend), fp-ts TaskEither (backend)
+  - **API**: REST + OpenAPI/Swagger + orval client generation
+  - **Auth**: JWT (access + refresh tokens)
+  - **Language**: TypeScript 5.x (strict mode)
+  - **Typography**: Plus Jakarta Sans (primary), JetBrains Mono (code)
+  
+  ## Architecture Principles
+  - SOLID principles throughout
+  - Functional programming with fp-ts at domain layer
+  - Feature-based module organization (NestJS)
+  - Islands architecture (Astro + Svelte)
+  - Repository pattern with explicit error handling
+  - Tailwind v4 CSS-first configuration with @theme directive
+  
+  ## Code Style
+  - Pure functions for domain logic (no side effects)
+  - fp-ts Either/Option/TaskEither for error handling
+  - Zod schemas for runtime validation
+  - Branded types for domain primitives (Email, UserId, etc.)
+  - Controllers convert fp-ts types to HTTP responses at boundary
+  
+  ## Package Structure
+  - apps/web - Astro frontend
+  - apps/api - NestJS backend
+  - packages/core - Shared domain logic (fp-ts, Zod schemas)
+  - packages/database - Prisma client + repositories
+  - packages/api-client - Generated typed API client
+  - packages/ui - Svelte components
+  - packages/config - ESLint, TypeScript, Tailwind configs
+  - packages/utils - Pure utility functions
+  - tools/scaffold - Project customization CLI
+  
+  ## Conventions
+  - Use @repo/* scope for internal packages
+  - Latest stable versions for all dependencies
+  - Environment variables for configuration
+  - Docker for development (Postgres + Redis)
 
-# Per-artifact rules (optional)
-# Add custom rules for specific artifacts.
-# Example:
-#   rules:
-#     proposal:
-#       - Keep proposals under 500 words
-#       - Always include a "Non-goals" section
-#     tasks:
-#       - Break tasks into chunks of max 2 hours
+rules:
+  proposal:
+    - Focus on WHAT and WHY, not HOW
+    - List all new capabilities with kebab-case names
+    - Keep concise (1-2 pages max)
+    - Include impact on existing code/dependencies
+  
+  design:
+    - Document key technical decisions with rationale
+    - Include alternatives considered for each decision
+    - Show data flow diagrams where helpful
+    - List risks with mitigations
+  
+  specs:
+    - Use SHALL/MUST for normative requirements
+    - Every requirement needs at least one scenario
+    - Scenarios use WHEN/THEN format
+    - Keep specs testable and verifiable
+  
+  tasks:
+    - Break into small, completable chunks (1-2 hours max)
+    - Order by dependency (what must be done first)
+    - Group related tasks under numbered headings
+    - Each task should be independently verifiable
