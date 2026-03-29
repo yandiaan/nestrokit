@@ -1,248 +1,259 @@
-# Nestrokit
+<div align="center">
+  <br />
+  <h1>Nestrokit</h1>
+  <p><strong>The Modern Full-Stack Monorepo Boilerplate</strong></p>
+  <p>Build production-ready applications with Astro, Svelte, NestJS, and Prisma</p>
+  <br />
 
-A production-ready full-stack boilerplate built with modern technologies and best practices.
+  ![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue?logo=typescript&logoColor=white)
+  ![Node](https://img.shields.io/badge/Node.js-20+-green?logo=node.js&logoColor=white)
+  ![License](https://img.shields.io/badge/License-MIT-yellow)
+  ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)
 
-## Tech Stack
+  <br />
+
+  [Quick Start](#quick-start) · [Documentation](#documentation) · [Features](#features) · [Contributing](#contributing)
+
+  <br />
+</div>
+
+---
+
+## Why Nestrokit?
+
+**Nestrokit** is an opinionated full-stack boilerplate designed for solo developers, small teams, and rapid prototyping. It combines battle-tested technologies with modern development practices.
+
+- **🚀 Ship Fast** — Pre-configured monorepo with hot reload across all packages
+- **🔒 Secure by Default** — JWT auth, rate limiting, CORS, and security headers included
+- **📦 Modular Architecture** — Add or remove features with the scaffold CLI
+- **🎯 Type-Safe End-to-End** — From database to frontend with zero runtime errors
+- **⚡ Optimized Performance** — Turborepo caching, partial hydration, and tree shaking
+
+---
+
+## Features
+
+<table>
+<tr>
+<td width="50%">
 
 ### Frontend
-- **[Astro](https://astro.build)** - Static-first web framework with partial hydration
-- **[Svelte 5](https://svelte.dev)** - Reactive UI components as islands
-- **[Tailwind CSS 4](https://tailwindcss.com)** - Utility-first CSS framework
+- **Astro 5** — Islands architecture with partial hydration
+- **Svelte 5** — Reactive components with runes
+- **Tailwind CSS 4** — CSS-first configuration
+- **Type-safe API Client** — Auto-generated from OpenAPI
+
+</td>
+<td width="50%">
 
 ### Backend
-- **[NestJS](https://nestjs.com)** - Enterprise Node.js framework
-- **[Prisma](https://prisma.io)** - Type-safe ORM
-- **[PostgreSQL](https://postgresql.org)** - Relational database
-- **[Redis](https://redis.io)** - Caching and sessions
+- **NestJS 11** — Enterprise-grade Node.js framework
+- **Prisma 6** — Type-safe database access
+- **Redis** — Caching and session storage
+- **Swagger/OpenAPI** — Auto-generated API docs
 
-### Architecture
-- **[Turborepo](https://turbo.build)** - High-performance monorepo build system
-- **[pnpm](https://pnpm.io)** - Fast, disk-efficient package manager
-- **[fp-ts](https://gcanti.github.io/fp-ts/)** - Functional programming utilities
-- **[Zod](https://zod.dev)** - Schema validation
+</td>
+</tr>
+<tr>
+<td width="50%">
 
-## Getting Started
+### Developer Experience
+- **Turborepo** — Blazing fast builds with caching
+- **pnpm Workspaces** — Efficient dependency management
+- **ESLint + Prettier** — Consistent code style
+- **Hot Module Reload** — Instant feedback loop
+
+</td>
+<td width="50%">
+
+### Production Ready
+- **Docker** — Multi-stage production builds
+- **Health Checks** — Kubernetes-ready endpoints
+- **Rate Limiting** — Built-in API protection
+- **Renovate** — Automated dependency updates
+
+</td>
+</tr>
+</table>
+
+---
+
+## Quick Start
 
 ### Prerequisites
 
 - Node.js 20+
 - pnpm 9+
-- Docker (for PostgreSQL and Redis)
+- Docker
 
 ### Installation
 
 ```bash
-# Clone the repository
-git clone https://github.com/your-username/nestrokit.git
-cd nestrokit
-
-# Install dependencies
+# Clone and install
+git clone https://github.com/difrfrfif/nestrokit.git && cd nestrokit
 pnpm install
 
-# Start Docker services (PostgreSQL + Redis)
+# Start services and database
 docker compose up -d
+pnpm db:generate && pnpm db:push
 
-# Setup database
-pnpm db:generate
-pnpm db:push
-
-# Start development servers
+# Launch development servers
 pnpm dev
 ```
 
-### Development URLs
+**That's it!** Open [localhost:4321](http://localhost:4321) for the frontend and [localhost:3001/docs](http://localhost:3001/docs) for API documentation.
 
-- **Frontend**: http://localhost:4321
-- **Backend API**: http://localhost:3001
-- **API Docs**: http://localhost:3001/api/docs
+---
 
 ## Project Structure
 
 ```
 nestrokit/
 ├── apps/
-│   ├── api/                 # NestJS backend
-│   │   ├── src/
-│   │   │   ├── database/    # Prisma integration
-│   │   │   ├── modules/     # Feature modules
-│   │   │   │   ├── auth/    # Authentication
-│   │   │   │   ├── cache/   # Redis caching
-│   │   │   │   ├── health/  # Health checks
-│   │   │   │   └── user/    # User CRUD
-│   │   │   └── shared/      # Pipes, filters, interceptors
-│   │   └── package.json
-│   │
-│   └── web/                 # Astro frontend
-│       ├── src/
-│       │   ├── components/  # Svelte islands
-│       │   ├── layouts/     # Astro layouts
-│       │   ├── pages/       # Astro pages
-│       │   └── stores/      # Svelte stores
-│       └── package.json
-│
+│   ├── api/                 # NestJS REST API
+│   └── web/                 # Astro + Svelte frontend
 ├── packages/
-│   ├── api-client/          # Generated API client (orval)
-│   ├── config/              # Shared configurations
-│   │   ├── eslint/          # ESLint configs
-│   │   ├── tailwind/        # Tailwind preset
-│   │   └── typescript/      # TypeScript configs
+│   ├── api-client/          # Generated API client
+│   ├── config/              # Shared configs (TS, ESLint, Tailwind)
 │   ├── core/                # Domain types, errors, schemas
 │   ├── database/            # Prisma schema & repositories
-│   ├── ui/                  # Svelte UI components
-│   └── utils/               # Utility functions (fp-ts)
-│
+│   ├── ui/                  # Svelte component library
+│   └── utils/               # FP utilities (fp-ts)
 ├── tools/
 │   └── scaffold/            # Project customization CLI
-│
-├── docker/
-│   ├── Dockerfile.api       # API production build
-│   ├── Dockerfile.web       # Web production build
-│   └── nginx.conf           # Production nginx config
-│
-├── docker-compose.yml       # Development services
-├── docker-compose.prod.yml  # Production stack
-├── turbo.json              # Turborepo config
-└── pnpm-workspace.yaml     # Workspace config
+└── docker/                  # Production Dockerfiles
 ```
 
-## Available Scripts
+---
 
-### Root Commands
+## Documentation
+
+### Commands
+
+| Command | Description |
+|---------|-------------|
+| `pnpm dev` | Start all apps in development mode |
+| `pnpm build` | Build all apps for production |
+| `pnpm lint` | Lint all packages |
+| `pnpm typecheck` | Type-check all packages |
+| `pnpm db:studio` | Open Prisma Studio |
+| `pnpm scaffold` | Customize project structure |
+
+### Environment Variables
+
+Create `.env` in the project root:
+
+```env
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/nestrokit
+REDIS_URL=redis://localhost:6379
+JWT_SECRET=your-secret-key
+```
+
+See [`.env.example`](.env.example) for all available options.
+
+### Authentication
+
+JWT-based auth with access/refresh tokens:
 
 ```bash
-# Development
-pnpm dev                  # Start all apps in development
-pnpm build               # Build all apps
-pnpm lint                # Lint all packages
-pnpm typecheck           # Type-check all packages
-pnpm format              # Format code with Prettier
-pnpm clean               # Clean all build artifacts
+# Register
+curl -X POST http://localhost:3001/api/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{"email":"user@example.com","password":"password123","name":"User"}'
 
-# Database
-pnpm db:generate         # Generate Prisma client
-pnpm db:migrate:dev      # Run development migrations
-pnpm db:migrate:deploy   # Run production migrations
-pnpm db:push             # Push schema to database
-pnpm db:studio           # Open Prisma Studio
-
-# Individual Apps
-pnpm api:dev             # Start API in development
-pnpm api:build           # Build API
-pnpm web:dev             # Start web in development
-pnpm web:build           # Build web
-
-# Utilities
-pnpm generate:api-client # Generate API client from OpenAPI
-pnpm scaffold            # Run scaffold CLI
-pnpm deps:check          # Check for outdated packages
-pnpm deps:update         # Update all packages
-pnpm deps:audit          # Security audit
+# Login
+curl -X POST http://localhost:3001/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"user@example.com","password":"password123"}'
 ```
 
-## Scaffold CLI
+### Scaffold CLI
 
-Customize the boilerplate for your project needs:
+Customize the boilerplate for your needs:
 
 ```bash
 pnpm scaffold
 ```
 
-Options:
-- **Full-stack**: Keep everything
-- **Frontend only**: Remove API and database
-- **Backend only**: Remove web app
-- **Custom**: Choose what to keep/remove
+Choose from presets or create a custom configuration:
+- **Full-stack** — Keep everything
+- **Frontend only** — Remove API and database packages
+- **Backend only** — Remove web app and UI components
 
-Use `pnpm scaffold --dry-run` to preview changes.
+---
 
-## Authentication
+## Deployment
 
-JWT-based authentication with access and refresh tokens:
-
-```typescript
-// Login
-POST /api/auth/login
-{ "email": "user@example.com", "password": "..." }
-
-// Register
-POST /api/auth/register
-{ "email": "...", "password": "...", "name": "..." }
-
-// Refresh tokens
-POST /api/auth/refresh
-{ "refreshToken": "..." }
-
-// Get current user
-GET /api/auth/me
-Authorization: Bearer <accessToken>
-```
-
-### Protected Routes
-
-All routes are protected by default. Use decorators to customize:
-
-```typescript
-@Public()           // Skip authentication
-@Roles('ADMIN')     // Require specific role
-@CurrentUser()      // Get authenticated user
-```
-
-## Environment Variables
-
-Copy `.env.example` to `.env.local` and configure:
-
-```env
-# Database
-DATABASE_URL=postgresql://postgres:postgres@localhost:5432/nestrokit
-
-# Redis
-REDIS_URL=redis://localhost:6379
-
-# JWT
-JWT_SECRET=your-secret-key-change-in-production
-JWT_ACCESS_EXPIRY=15m
-JWT_REFRESH_EXPIRY=7d
-
-# API
-PORT=3001
-CORS_ORIGIN=http://localhost:4321
-
-# Frontend
-PUBLIC_API_URL=http://localhost:3001/api
-```
-
-## Docker Deployment
-
-### Development
+### Docker
 
 ```bash
-# Start PostgreSQL and Redis
-docker compose up -d
-```
-
-### Production
-
-```bash
-# Build and start all services
+# Production build
 docker compose -f docker-compose.prod.yml up -d
-
-# View logs
-docker compose -f docker-compose.prod.yml logs -f
 ```
 
-Required environment variables for production:
+Required production secrets:
 - `POSTGRES_PASSWORD`
-- `REDIS_PASSWORD`
+- `REDIS_PASSWORD`  
 - `JWT_SECRET`
+
+### Manual
+
+```bash
+pnpm build
+pnpm --filter @repo/api start:prod
+pnpm --filter @repo/web preview
+```
+
+---
+
+## Tech Stack
+
+| Layer | Technology | Version |
+|-------|------------|---------|
+| Frontend | [Astro](https://astro.build) | 5.x |
+| UI | [Svelte](https://svelte.dev) | 5.x |
+| Styling | [Tailwind CSS](https://tailwindcss.com) | 4.x |
+| Backend | [NestJS](https://nestjs.com) | 11.x |
+| ORM | [Prisma](https://prisma.io) | 6.x |
+| Database | [PostgreSQL](https://postgresql.org) | 16 |
+| Cache | [Redis](https://redis.io) | 7 |
+| Build | [Turborepo](https://turbo.build) | 2.x |
+| Package Manager | [pnpm](https://pnpm.io) | 9.x |
+| Validation | [Zod](https://zod.dev) | 3.x |
+| FP Utilities | [fp-ts](https://gcanti.github.io/fp-ts/) | 2.x |
+
+---
 
 ## Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Run `pnpm lint` and `pnpm typecheck`
-5. Submit a pull request
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+
+```bash
+# Fork, clone, and install
+git clone https://github.com/YOUR_USERNAME/nestrokit.git
+cd nestrokit && pnpm install
+
+# Create a branch
+git checkout -b feature/amazing-feature
+
+# Make changes, then
+pnpm lint && pnpm typecheck
+git commit -m "feat: add amazing feature"
+git push origin feature/amazing-feature
+```
+
+---
 
 ## License
 
-MIT License - see [LICENSE](LICENSE) for details.
+MIT © [Nestrokit Contributors](https://github.com/difrfrfif/nestrokit/graphs/contributors)
+
+---
+
+<div align="center">
+  <br />
+  <p>
+    <sub>Built with ❤️ for developers who ship fast</sub>
+  </p>
+  <br />
+</div>
