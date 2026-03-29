@@ -51,7 +51,7 @@ export class AuthController {
   })
   @ApiResponse({ status: 400, description: 'Validation error' })
   @ApiResponse({ status: 409, description: 'Email already exists' })
-  async register(@Body() dto: RegisterDto) {
+  async register(@Body() dto: RegisterDto): Promise<AuthResponseDto> {
     // Create user
     const user = await this.userService.create({
       email: dto.email,
@@ -141,7 +141,7 @@ export class AuthController {
     type: MeResponseDto,
   })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async me(@CurrentUser() auth: JwtPayload) {
+  async me(@CurrentUser() auth: JwtPayload): Promise<MeResponseDto> {
     const user = await this.userService.findById(auth.sub);
 
     return {
