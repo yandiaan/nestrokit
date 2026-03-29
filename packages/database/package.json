@@ -3,21 +3,33 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "main": "./dist/index.js",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.cjs"
     },
     "./client": {
+      "types": "./dist/client.d.ts",
       "import": "./dist/client.js",
-      "types": "./dist/client.d.ts"
+      "require": "./dist/client.cjs",
+      "default": "./dist/client.cjs"
     },
     "./repositories": {
+      "types": "./dist/repositories/index.d.ts",
       "import": "./dist/repositories/index.js",
-      "types": "./dist/repositories/index.d.ts"
+      "require": "./dist/repositories/index.cjs",
+      "default": "./dist/repositories/index.cjs"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "client": ["./dist/client.d.ts"],
+      "repositories": ["./dist/repositories/index.d.ts"]
     }
   },
   "scripts": {
