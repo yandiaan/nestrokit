@@ -3,29 +3,47 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "main": "./dist/index.js",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.cjs"
     },
     "./fp": {
+      "types": "./dist/fp/index.d.ts",
       "import": "./dist/fp/index.js",
-      "types": "./dist/fp/index.d.ts"
+      "require": "./dist/fp/index.cjs",
+      "default": "./dist/fp/index.cjs"
     },
     "./common": {
+      "types": "./dist/common/index.d.ts",
       "import": "./dist/common/index.js",
-      "types": "./dist/common/index.d.ts"
+      "require": "./dist/common/index.cjs",
+      "default": "./dist/common/index.cjs"
     },
     "./date": {
+      "types": "./dist/common/date.d.ts",
       "import": "./dist/common/date.js",
-      "types": "./dist/common/date.d.ts"
+      "require": "./dist/common/date.cjs",
+      "default": "./dist/common/date.cjs"
     },
     "./string": {
+      "types": "./dist/common/string.d.ts",
       "import": "./dist/common/string.js",
-      "types": "./dist/common/string.d.ts"
+      "require": "./dist/common/string.cjs",
+      "default": "./dist/common/string.cjs"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "fp": ["./dist/fp/index.d.ts"],
+      "common": ["./dist/common/index.d.ts"],
+      "date": ["./dist/common/date.d.ts"],
+      "string": ["./dist/common/string.d.ts"]
     }
   },
   "scripts": {
