@@ -5,11 +5,15 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
 
 import { DatabaseModule } from './database/database.module';
 import { HealthModule } from './modules/health/health.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/user/user.module';
+import { CacheModule } from './modules/cache/cache.module';
+import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
+import { RolesGuard } from './modules/auth/guards/roles.guard';
 
 @Module({
   imports: [
@@ -41,10 +45,26 @@ import { UserModule } from './modules/user/user.module';
     // Database
     DatabaseModule,
 
+    // Cache
+    CacheModule,
+
     // Feature modules
     HealthModule,
     AuthModule,
     UserModule,
+  ],
+  providers: [
+    // Global JWT auth guard - all routes require auth by default
+    // Use @Public() decorator to mark routes as public
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+    // Global roles guard - use @Roles() decorator to restrict access
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
   ],
 })
 export class AppModule {}

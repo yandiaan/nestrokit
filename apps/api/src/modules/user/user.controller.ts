@@ -2,6 +2,7 @@
  * User Controller
  *
  * REST API endpoints for user management.
+ * All endpoints require ADMIN role.
  */
 
 import {
@@ -22,13 +23,17 @@ import {
   ApiResponse,
   ApiParam,
   ApiQuery,
+  ApiBearerAuth,
 } from '@nestjs/swagger';
 
 import { UserService } from './user.service';
 import { CreateUserDto, UpdateUserDto, UserResponseDto, UserListQueryDto } from './user.dto';
+import { Roles } from '../auth/decorators/roles.decorator';
 
 @ApiTags('users')
 @Controller('users')
+@ApiBearerAuth('JWT-auth')
+@Roles('ADMIN')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 

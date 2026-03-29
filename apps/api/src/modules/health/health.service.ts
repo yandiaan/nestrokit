@@ -6,6 +6,7 @@
 
 import { Injectable, ServiceUnavailableException } from '@nestjs/common';
 import { DatabaseService } from '../../database/database.module';
+import { CacheService } from '../cache/cache.service';
 
 export interface HealthCheckResult {
   status: 'ok' | 'error';
@@ -18,7 +19,10 @@ export interface HealthCheckResult {
 export class HealthService {
   private readonly startTime = Date.now();
 
-  constructor(private readonly db: DatabaseService) {}
+  constructor(
+    private readonly db: DatabaseService,
+    private readonly cache: CacheService,
+  ) {}
 
   /**
    * Basic health check
@@ -44,7 +48,7 @@ export class HealthService {
 
   /**
    * Readiness check - is the service ready to handle requests?
-   * Checks database connectivity
+   * Checks database and cache connectivity
    */
   async readinessCheck(): Promise<HealthCheckResult> {
     const checks: HealthCheckResult['checks'] = {};
@@ -63,6 +67,21 @@ export class HealthService {
         message: error instanceof Error ? error.message : 'Unknown error',
       };
       allHealthy = false;
+    }
+
+    // Redis cache check (optional - doesn't fail health check)
+    try {
+      const cacheHealthy = await this.cache.healthCheck();
+      checks['cache'] = cacheHealthy
+        ? { status: 'ok' }
+        : { status: 'error', message: 'Cache not available (optional)' };
+      // Cache is optional, don't fail health check
+    } catch (error) {
+      checks['cache'] = {
+        status: 'error',
+        message: error instanceof Error ? error.message : 'Unknown error',
+      };
+      // Cache is optional, don't fail health check
     }
 
     const result: HealthCheckResult = {

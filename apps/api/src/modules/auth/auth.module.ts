@@ -1,15 +1,27 @@
 /**
  * Auth Module
  *
- * Handles authentication (JWT) - Full implementation in Section 7
+ * Handles authentication (JWT) with:
+ * - Login/Register/Logout
+ * - Token refresh
+ * - Guards and decorators
  */
 
 import { Module } from '@nestjs/common';
 import { JwtModule, type JwtModuleOptions } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
 import { ConfigService } from '@nestjs/config';
+
+import { AuthController } from './auth.controller';
+import { AuthService } from './auth.service';
+import { JwtStrategy } from './strategies/jwt.strategy';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { RolesGuard } from './guards/roles.guard';
+import { UserModule } from '../user/user.module';
 
 @Module({
   imports: [
+    PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.registerAsync({
       inject: [ConfigService],
       useFactory: (config: ConfigService): JwtModuleOptions => ({
@@ -19,9 +31,10 @@ import { ConfigService } from '@nestjs/config';
         },
       }),
     }),
+    UserModule,
   ],
-  providers: [],
-  controllers: [],
-  exports: [JwtModule],
+  controllers: [AuthController],
+  providers: [AuthService, JwtStrategy, JwtAuthGuard, RolesGuard],
+  exports: [AuthService, JwtAuthGuard, RolesGuard],
 })
 export class AuthModule {}
