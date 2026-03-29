@@ -1,0 +1,72 @@
+---
+/**
+ * Home Page
+ *
+ * Landing page with example Svelte island components.
+ */
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Counter from '../components/Counter.svelte';
+import AuthStatus from '../components/AuthStatus.svelte';
+---
+
+<BaseLayout title="Home | Nestrokit">
+  <div class="container py-12">
+    <section class="text-center mb-16">
+      <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+        Welcome to Nestrokit
+      </h1>
+      <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+        A modern full-stack boilerplate with Astro, Svelte, NestJS, and more.
+        Built for scalability, maintainability, and developer experience.
+      </p>
+    </section>
+
+    <section class="grid md:grid-cols-2 gap-8 mb-16">
+      <!-- Counter Island -->
+      <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+        <h2 class="text-lg font-semibold mb-4">Interactive Counter</h2>
+        <p class="text-gray-600 dark:text-gray-400 mb-4">
+          A Svelte island component with client-side interactivity.
+        </p>
+        <Counter client:load />
+      </div>
+
+      <!-- Auth Status Island -->
+      <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+        <h2 class="text-lg font-semibold mb-4">Authentication</h2>
+        <p class="text-gray-600 dark:text-gray-400 mb-4">
+          Check authentication status with the API client.
+        </p>
+        <AuthStatus client:load />
+      </div>
+    </section>
+
+    <section class="mb-16">
+      <h2 class="text-2xl font-bold text-center mb-8">Features</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="text-center p-6">
+          <div class="text-4xl mb-4">🚀</div>
+          <h3 class="font-semibold mb-2">Fast by Default</h3>
+          <p class="text-gray-600 dark:text-gray-400 text-sm">
+            Astro's zero-JS approach with Svelte islands for interactivity.
+          </p>
+        </div>
+        <div class="text-center p-6">
+          <div class="text-4xl mb-4">🔒</div>
+          <h3 class="font-semibold mb-2">Secure Backend</h3>
+          <p class="text-gray-600 dark:text-gray-400 text-sm">
+            NestJS with JWT auth, rate limiting, and security headers.
+          </p>
+        </div>
+        <div class="text-center p-6">
+          <div class="text-4xl mb-4">📦</div>
+          <h3 class="font-semibold mb-2">Monorepo Ready</h3>
+          <p class="text-gray-600 dark:text-gray-400 text-sm">
+            Turborepo for efficient builds and shared packages.
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
