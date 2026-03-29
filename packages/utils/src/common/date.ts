@@ -106,7 +106,7 @@ import {
  * Returns null if invalid
  */
 export const safeParse = (value: string | Date | number | null | undefined): Date | null => {
-  if (value == null) return null;
+  if (value === null || value === undefined) return null;
   if (value instanceof Date) return isValid(value) ? value : null;
   if (typeof value === 'number') {
     const date = new Date(value);

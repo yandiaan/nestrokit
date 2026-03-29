@@ -118,7 +118,7 @@ export const tapError =
 export const fromNullable =
   <E>(onNone: () => E) =>
   <A>(value: A | null | undefined): TE.TaskEither<E, A> =>
-    value == null ? TE.left(onNone()) : TE.right(value);
+    value === null || value === undefined ? TE.left(onNone()) : TE.right(value);
 
 // Declare setTimeout for cross-platform compatibility
 declare function setTimeout(callback: () => void, ms: number): unknown;

@@ -58,7 +58,7 @@ export const normalizeWhitespace = (str: string): string =>
  * Check if string is empty or only whitespace
  */
 export const isBlank = (str: string | null | undefined): boolean =>
-  str == null || str.trim().length === 0;
+  str === null || str === undefined || str.trim().length === 0;
 
 /**
  * Check if string is non-empty and not only whitespace
