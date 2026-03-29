@@ -3,25 +3,40 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "main": "./dist/index.js",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.cjs"
     },
     "./types": {
+      "types": "./dist/types/index.d.ts",
       "import": "./dist/types/index.js",
-      "types": "./dist/types/index.d.ts"
+      "require": "./dist/types/index.cjs",
+      "default": "./dist/types/index.cjs"
     },
     "./errors": {
+      "types": "./dist/errors/index.d.ts",
       "import": "./dist/errors/index.js",
-      "types": "./dist/errors/index.d.ts"
+      "require": "./dist/errors/index.cjs",
+      "default": "./dist/errors/index.cjs"
     },
     "./schemas": {
+      "types": "./dist/schemas/index.d.ts",
       "import": "./dist/schemas/index.js",
-      "types": "./dist/schemas/index.d.ts"
+      "require": "./dist/schemas/index.cjs",
+      "default": "./dist/schemas/index.cjs"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "types": ["./dist/types/index.d.ts"],
+      "errors": ["./dist/errors/index.d.ts"],
+      "schemas": ["./dist/schemas/index.d.ts"]
     }
   },
   "scripts": {

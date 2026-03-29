@@ -7,7 +7,7 @@ export default defineConfig({
     'src/errors/index.ts',
     'src/schemas/index.ts',
   ],
-  format: ['esm'],
+  format: ['cjs', 'esm'],
   dts: true,
   clean: true,
   sourcemap: true,
