@@ -12,21 +12,17 @@
 -->
 <script lang="ts">
   import { clsx } from 'clsx';
-  import type { Snippet } from 'svelte';
 
   interface Props {
     /** Card padding */
     padding?: 'none' | 'sm' | 'md' | 'lg';
     /** Additional CSS classes */
     class?: string;
-    /** Card content */
-    children?: Snippet;
   }
 
   let {
     padding = 'md',
     class: className = '',
-    children,
   }: Props = $props();
 
   const paddingStyles = {
@@ -47,7 +43,5 @@
 </script>
 
 <div class={cardClass}>
-  {#if children}
-    {@render children()}
-  {/if}
+  <slot />
 </div>

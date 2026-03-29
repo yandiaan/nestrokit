@@ -33,6 +33,8 @@ export const focusTrap: Action<HTMLElement, boolean | undefined> = (node, enable
     const first = focusable[0];
     const last = focusable[focusable.length - 1];
 
+    if (!first || !last) return;
+
     if (event.shiftKey && document.activeElement === first) {
       event.preventDefault();
       last.focus();
@@ -46,8 +48,9 @@ export const focusTrap: Action<HTMLElement, boolean | undefined> = (node, enable
     node.addEventListener('keydown', handleKeyDown);
     // Focus first focusable element
     const focusable = getFocusableElements();
-    if (focusable.length > 0) {
-      focusable[0].focus();
+    const first = focusable[0];
+    if (first) {
+      first.focus();
     }
   };
 

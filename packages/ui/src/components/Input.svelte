@@ -91,7 +91,7 @@
   {/if}
 
   <input
-    {type}
+    type={type}
     {name}
     id={inputId}
     {placeholder}
@@ -99,8 +99,11 @@
     {required}
     {readonly}
     class={inputClass}
-    bind:value
-    {oninput}
+    {value}
+    oninput={(e) => {
+      value = (e.target as HTMLInputElement).value;
+      oninput?.(e);
+    }}
     {onblur}
   />
 
