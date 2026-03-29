@@ -28,25 +28,34 @@ export interface CreateUserData {
   email: string;
   passwordHash: string;
   name: string;
-  role?: 'USER' | 'ADMIN';
+  role?: 'USER' | 'ADMIN' | undefined;
 }
 
 /**
  * User update input
  */
 export interface UpdateUserData {
-  email?: string;
-  name?: string;
-  role?: 'USER' | 'ADMIN';
+  email?: string | undefined;
+  name?: string | undefined;
+  role?: 'USER' | 'ADMIN' | undefined;
 }
 
 /**
  * User query filters
  */
 export interface UserFilters {
-  search?: string;
-  role?: 'USER' | 'ADMIN';
+  search?: string | undefined;
+  role?: 'USER' | 'ADMIN' | undefined;
 }
+
+/**
+ * Remove undefined values from object (for Prisma compatibility)
+ */
+const filterUndefined = <T extends object>(obj: T): { [K in keyof T]: Exclude<T[K], undefined> } => {
+  return Object.fromEntries(
+    Object.entries(obj).filter(([, value]) => value !== undefined)
+  ) as { [K in keyof T]: Exclude<T[K], undefined> };
+};
 
 /**
  * User sort options
@@ -176,7 +185,7 @@ export const userRepository = {
     tryCatch(() =>
       prisma.user.update({
         where: { id },
-        data,
+        data: filterUndefined(data),
       })
     ),
 
